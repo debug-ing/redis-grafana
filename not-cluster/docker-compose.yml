@@ -1,0 +1,27 @@
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - ${REDIS_PORT}:6379
+    networks:
+      - net
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
+      - GF_INSTALL_PLUGINS=redis-datasource
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+      - ./grafana/dashboard.yml:/etc/grafana/provisioning/dashboards/main.yaml
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge

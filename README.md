@@ -1,4 +1,4 @@
-### Monitor redis in grafana
+# Monitor redis in grafana
 This repository provides a setup to monitor Redis using Grafana, whether in cluster mode or non-cluster mode.
 i use this dashboard link
 
